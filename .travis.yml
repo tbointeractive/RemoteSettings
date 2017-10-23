@@ -1,0 +1,19 @@
+language: objective-c
+xcode_workspace: RemoteSettings.xcworkspace
+xcode_scheme: RemoteSettings
+xcode_sdk: iphonesimulator
+osx_image: xcode9.1
+
+before_install:
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+
+install:
+  - gem install danger
+  - gem install xcpretty
+
+before_script:
+  - export LANG=en_US.UTF-8
+  - danger
+
+script:
+  - xcodebuild -workspace RemoteSettings.xcworkspace -scheme "RemoteSettings" -sdk iphonesimulator11.0 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0' test | xcpretty
